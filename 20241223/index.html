@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vue Router Example</title>
+    <title>タスク管理表</title>
     <link rel="stylesheet" href="css/main.css" />
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   </head>
@@ -14,12 +14,13 @@
       <form @submit.prevent>
         <label for="inputTask">タスク名：</label>
         <input type="text" id="inputTask" v-model="inputTask" /><br />
+        <label for="detail">詳細：</label>
+        <textarea name="detail" id="detail" v-model="detail"></textarea>
         <label for="startScheduleDate">開始予定日付：</label>
         <input type="date" id="startScheduleDate" v-model="startScheduleDate" />
         <label for="endScheduleDate">終了予定日付：</label>
         <input type="date" id="endScheduleDate" v-model="endScheduleDate" />
         <button @click="addTask">追加する</button>
-        <pre>{{$data}}</pre>
       </form>
       <todo_component
         title="ToDo"

@@ -1,4 +1,3 @@
-
 const { createApp } = Vue;
 
 // アプリケーションの作成とマウント
@@ -7,18 +6,19 @@ const app = createApp({
     return {
       id: 0,
       inputTask: "",
+      detail: "",
       startScheduleDate: "",
       endScheduleDate: "",
       startAchievementDate: "",
       endAchievementDate: "",
       completed: false,
-      taskList: []
+      taskList: JSON.parse(localStorage.getItem('taskList')) || []
     }
   },
   methods: {
     addTask() {
       if (!this.inputTask || !this.startScheduleDate || !this.endScheduleDate) {
-        alert('全項目入力してください');
+        alert('詳細以外は必須項目です');
         return;
       }
       if (this.startScheduleDate > this.endScheduleDate) {
@@ -29,6 +29,7 @@ const app = createApp({
         {
           id: ++this.id,
           taskName: this.inputTask,
+          detail: this.detail,
           startScheduleDate: this.startScheduleDate,
           endScheduleDate: this.endScheduleDate,
           startAchievementDate: this.startAchievementDate,
@@ -36,17 +37,22 @@ const app = createApp({
           completed: this.completed
         }
       )
+      this.saveTasks();
       this.inputTask = ""
+      this.detail = ""
       this.startScheduleDate = ""
       this.endScheduleDate = ""
     },
-    changeEvent(task) {
-      console.log("task=" + task)
-      if (task.startAchievementDate && task.endAchievementDate && task.startAchievementDate > task.endAchievementDate) {
-        alert('終了実績日付は開始実績日付より前にしてください');
-        task.completed = false; // チェックを外す
-      }
-
+    saveTasks() {
+      localStorage.setItem('taskList', JSON.stringify(this.taskList));
+    }
+  },
+  watch: {
+    taskList: {
+      handler() {
+        this.saveTasks();
+      },
+      deep: true
     }
   }
 });
@@ -59,11 +65,24 @@ app.component('todo_component', {
       return this.tasks.filter(task => task.completed === this.completed);
     }
   },
+  methods: {
+    changeEvent(task) {
+      if (task.startAchievementDate === "" || task.endAchievementDate === "") {
+        alert('開始実績日付と終了実績日付を入力してください');
+        task.completed = false;
+      } else if (task.startAchievementDate > task.endAchievementDate) {
+        alert('終了実績日付は開始実績日付より前にしてください');
+        task.completed = false;
+      }
+      this.$emit('update-tasks');
+    }
+  },
   template: `
   <h3>{{ title }}</h3>
   <table>
     <tr>
       <th>タスク名</th>
+      <th>詳細</th>
       <th>開始予定日付</th>
       <th>終了予定日付</th>
       <th>開始実績日付</th>
@@ -72,6 +91,7 @@ app.component('todo_component', {
     </tr>
     <tr v-for="task in filteredTaskList" :key="task.id">
       <th>{{task.taskName}}</th>
+      <th>{{task.detail}}</th>
       <th>{{task.startScheduleDate}}</th>
       <th>{{task.endScheduleDate}}</th>
       <th v-if="!(task.completed)"><input type="date" v-model="task.startAchievementDate" /></th>
@@ -82,6 +102,6 @@ app.component('todo_component', {
     </tr>
   </table>
   `
-})
+});
 
 app.mount('#app');

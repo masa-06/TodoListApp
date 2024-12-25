@@ -1,81 +1,76 @@
+/* main.css */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
+  font-family: "Arial", sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
   margin: 0;
-  padding: 20px;
-}
-
-#app {
-  max-width: 800px;
-  margin: 0 auto;
-  background: #fff;
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 0;
 }
 
 h2,
 h3 {
-  color: #333;
+  color: #4a90e2;
+  text-align: center;
 }
 
 form {
-  margin-bottom: 20px;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   font-weight: bold;
 }
 
 input[type="text"],
-input[type="date"] {
-  width: calc(100% - 22px);
+input[type="date"],
+textarea {
+  width: calc(100% - 20px);
   padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
   border-radius: 4px;
 }
 
 button {
-  padding: 10px 20px;
-  background-color: #28a745;
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #4a90e2;
   color: #fff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 16px;
 }
 
 button:hover {
-  background-color: #218838;
+  background-color: #357ab8;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 20px;
+  margin: 20px 0;
 }
 
 th,
 td {
+  padding: 10px;
   border: 1px solid #ddd;
-  padding: 8px;
   text-align: left;
 }
 
 th {
-  background-color: #f2f2f2;
-  font-weight: bold;
-}
-
-tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-tr:hover {
-  background-color: #f1f1f1;
+  background-color: #f4f4f9;
 }
 
 input[type="checkbox"] {
-  transform: scale(1.2);
+  transform: scale(1.5);
 }
